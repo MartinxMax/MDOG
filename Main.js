@@ -43,27 +43,29 @@ function getNetworkType() {
     }
     return networkType;
 }
-function getCusIpAdress(){
-    var data;
-    let xmlHttpRequest;
-    if(window.ActiveXObject){
+function getCusIpAdress() {
+    var data = null;
+    var xmlHttpRequest;
+    if (window.ActiveXObject) {
         xmlHttpRequest = new ActiveXObject("Microsoft.XMLHTTP");
-    }else if(window.XMLHttpRequest){
+    } else if (window.XMLHttpRequest) {
         xmlHttpRequest = new XMLHttpRequest();
     }
-    xmlHttpRequest.onreadystatechange=function(){
-        if(xmlHttpRequest.readyState == 4){
-            if(xmlHttpRequest.status == 200) {
-                data=xmlHttpRequest .responseText;
+    try {
+        xmlHttpRequest.onreadystatechange = function () {
+            if (xmlHttpRequest.readyState == 4) {
+                if (xmlHttpRequest.status == 200) {
+                    data = xmlHttpRequest.responseText;
+                } else {
+                    data = 'None';
+                }
             }
-            else{
-                data=null;
-            }
-        }
-    };
-    xmlHttpRequest.open("get", atob("aHR0cHM6Ly9hcGk0LmlwaWZ5Lm9yZy8/Zm9ybWF0PXRleHQ="), false);
-    xmlHttpRequest.send(null);
-
+        };
+        xmlHttpRequest.open("GET", atob("aHR0cHM6Ly9hcGk0LmlwaWZ5Lm9yZy8/Zm9ybWF0PXRleHQ="), false);
+        xmlHttpRequest.send(null);
+    } catch (error) {
+        data = 'None';
+    }
     return data;
 }
 
